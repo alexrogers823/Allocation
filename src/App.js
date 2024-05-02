@@ -1,11 +1,10 @@
 import './App.css';
-import BalanceCharts from './pages/BalanceCharts';
+import Main from './pages/Main';
 
 function App() {
   return (
     <div className="App">
-      {/* <Main /> */}
-      <BalanceCharts />
+      <Main />
     </div>
   );
 }

@@ -1,32 +1,50 @@
+import { Box, Tab, Tabs, Typography } from '@mui/material'
 import dayjs from "dayjs"
 import { useState } from "react"
+
+import { accountsData } from "../data"
 import { updateAccounts } from "../utils"
 import AllocationSummary from "./AllocationSummary/"
+import BalanceCharts from './BalanceCharts'
 import BillCollection from "./BillCollection"
 
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 const Main = () => {
+  const [tabValue, setTabValue] = useState(0);
   const [income, setIncome] = useState(0)
   const [summaryReady, setSummaryReady] = useState(false)
   
-  const [accounts, setAccounts] = useState([
-    { name: 'Rent', cost: 1250, priority: 'base', link: 'https://www.ally.com/'},
-    { name: 'Cushion', cost: 300, priority: 'base' },
-    { name: 'Amex Blue', cost: 0, priority: 'credit', link: 'https://www.americanexpress.com/en-us/account/login?inav=iNavLnkLog', dueDate: 12 },
-    { name: 'Amex Gold', cost: 0, priority: 'credit', link: 'https://www.americanexpress.com/en-us/account/login?inav=iNavLnkLog', dueDate: 27 },
-    { name: 'Capital One', cost: 0, priority: 'credit', link: 'https://www.capitalone.com/', dueDate: 2 },
-    { name: 'Discover', cost: 0, priority: 'credit', link:  'https://www.discover.com/', dueDate: 12 },
-    { name: 'Wells Fargo', cost: 0, priority: 'credit', link: 'https://www.wellsfargo.com/', dueDate: 23 },
-    { name: 'Emergency', cost: 125, priority: 'primary', link: 'https://www.wellsfargo.com/' },
-    { name: 'Student Loans', cost: 0, priority: 'primary', link: 'https://nelnet.studentaid.gov/account/login' },
-    { name: 'Australia', cost: 375, priority: 'primary' },
-    { name: 'Phone Bill', cost: 75, priority: 'primary' },
-    { name: 'Voiceover', cost: 100, priority: 'secondary' },
-    { name: 'Flights', cost: 30, priority: 'secondary' },
-    { name: 'Travel', cost: 70, priority: 'secondary' },
-    { name: 'Investments', cost: 100, priority: 'tertiary' },
-    { name: 'Car', cost: 100, priority: 'tertiary' },
-    { name: 'Short Term Expenses', cost: 50, priority: 'tertiary' }
-  ])
+  const [accounts, setAccounts] = useState([ ...accountsData ])
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
 
   const handleChangeAccount = (e, accountName) => {
     const updatedAccounts = updateAccounts(e.target.value, accountName, accounts)
@@ -39,31 +57,43 @@ const Main = () => {
 
   const handleChangeToSummary = () => {
     setSummaryReady(true)
+    handleTabChange(null, 1)
   }
 
   const todaysDate = dayjs() 
 
   return (
-    <>
-      {summaryReady 
-        ? <AllocationSummary 
-            date={todaysDate} 
-            income={income}
-            accounts={accounts}
-            onChangeIncome={handleChangeIncome}
-            onChangeAccount={handleChangeAccount}
-          />
-        :  <BillCollection 
-            date={todaysDate}
-            accounts={accounts.filter(acc => acc.priority === 'credit')}
-            onChangeIncome={handleChangeIncome}
-            onChange={handleChangeAccount}
-            onSetSummary={handleChangeToSummary}
-          />
-        
-      }
-    </>
-  )
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={tabValue} onChange={handleTabChange} aria-label="basic tabs example">
+          <Tab label="Allocation Input" disabled={summaryReady} {...a11yProps(0)} />
+          <Tab label="Allocation Summary" disabled={!summaryReady} {...a11yProps(1)} />
+          <Tab label="Account Charts" {...a11yProps(2)} />
+        </Tabs>
+      </Box>
+      <CustomTabPanel value={tabValue} index={0}>
+        <BillCollection 
+          date={todaysDate}
+          accounts={accounts.filter(acc => acc.priority === 'credit')}
+          onChangeIncome={handleChangeIncome}
+          onChange={handleChangeAccount}
+          onSetSummary={handleChangeToSummary}
+        />
+      </CustomTabPanel>
+      <CustomTabPanel value={tabValue} index={1}>
+        <AllocationSummary 
+          date={todaysDate} 
+          income={income}
+          accounts={accounts}
+          onChangeIncome={handleChangeIncome}
+          onChangeAccount={handleChangeAccount}
+        />
+      </CustomTabPanel>
+      <CustomTabPanel value={tabValue} index={2}>
+        <BalanceCharts />
+      </CustomTabPanel>
+    </Box>
+  );
 }
 
 export default Main

@@ -1,3 +1,4 @@
+import { accountsData } from './accountsData'
 import { amexBlueData } from './amexBlueData'
 import { amexGoldData } from './amexGoldData'
 import { australiaData } from './australiaData'
@@ -7,7 +8,5 @@ import { emergencyFundData } from './emergencyFundData'
 import { studentLoanData } from './studentLoanData'
 import { wellsFargoData } from './wellsFargoData'
 
-export {
-  amexBlueData, amexGoldData, australiaData, capitalOneData, discoverData, emergencyFundData, studentLoanData, wellsFargoData
-}
+export { accountsData, amexBlueData, amexGoldData, australiaData, capitalOneData, discoverData, emergencyFundData, studentLoanData, wellsFargoData }
 
