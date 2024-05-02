@@ -1,13 +1,11 @@
 import './App.css';
-import AreaChart from './components/AreaChart/AreaChart';
-import LineChart from './components/LineChart';
+import BalanceCharts from './pages/BalanceCharts';
 
 function App() {
   return (
     <div className="App">
       {/* <Main /> */}
-      <AreaChart />
-      <LineChart />
+      <BalanceCharts />
     </div>
   );
 }
