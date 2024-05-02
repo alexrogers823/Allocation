@@ -1,15 +1,16 @@
 import { LineChart, lineElementClasses } from '@mui/x-charts/LineChart';
 import * as React from 'react';
+import { capitalOneData } from '../../data';
 
-const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
+const uData = [4000, 3500, 3000, 2500, 2000, 1500, 1000];
 const xLabels = [
-  'Page A',
-  'Page B',
-  'Page C',
-  'Page D',
-  'Page E',
-  'Page F',
-  'Page G',
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
 ];
 
 export default function AreaChart() {
@@ -17,8 +18,8 @@ export default function AreaChart() {
     <LineChart
       width={500}
       height={300}
-      series={[{ data: uData, label: 'uv', area: true, showMark: false }]}
-      xAxis={[{ scaleType: 'point', data: xLabels }]}
+      series={[{ data: capitalOneData.map(instance => instance.balance), label: 'Balance', area: true, showMark: false }]}
+      xAxis={[{ scaleType: 'point', data: capitalOneData.map(instance => instance.date) }]}
       sx={{
         [`& .${lineElementClasses.root}`]: {
           display: 'none',
