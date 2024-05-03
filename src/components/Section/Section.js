@@ -9,18 +9,22 @@ const SectionItem = styled(Paper)((props) => ({
   textAlign: 'left',
 }))
 
+const StyledTypography = styled(Typography)((props) => ({
+  color: props.textColor ? props.textColor : '#000'
+}))
+
 const Section = props => {
   return (
     <SectionItem elevation={3} backgroundColor={props.backgroundColor}>
-      <Typography variant="h6">{props.title}</Typography>
-      <Typography variant="subtitle1" gutterBottom>Income Remaining: {props.remainingIncome}</Typography>
+      <StyledTypography variant="h6" textColor={props.textColor}>{props.title}</StyledTypography>
+      <StyledTypography variant="subtitle1" textColor={props.textColor} gutterBottom>Income Remaining: {props.remainingIncome}</StyledTypography>
       <Grid container spacing={2}>
         {props.accounts.map((acc, i) => <Account key={i} name={acc.name} cost={acc.cost} link={acc.link ? acc.link : null} onChangeAccount={props.onChangeAccount} />)}
       </Grid>
-      <Typography variant="subtitle1">
+      <StyledTypography variant="subtitle1" textColor={props.textColor}>
         <span>Total: </span>
         <span>{props.accounts.reduce((total, acc) => total + acc.cost, 0)}</span>
-      </Typography>
+      </StyledTypography>
     </SectionItem>
   )
 }

@@ -50,7 +50,7 @@ const AllocationSummary = props => {
         remainingIncome={calculateRemainingIncome(props.income, props.accounts, 'base')}
         title="Base Expenses" 
         onChangeAccount={props.onChangeAccount}
-        backgroundColor={'blue'}
+        backgroundColor={'#ACEAF9'}
       />
       {isGreaterThanZero(primary, 'primary') &&
         <Section 
@@ -58,6 +58,7 @@ const AllocationSummary = props => {
           remainingIncome={primary}
           title="Primary Expenses" 
           onChangeAccount={props.onChangeAccount}
+          backgroundColor={'#89C9D9'}
         />
       }
       {isGreaterThanZero(credit, 'credit') &&
@@ -66,6 +67,8 @@ const AllocationSummary = props => {
           remainingIncome={credit}
           title="Credit Card Payments" 
           onChangeAccount={props.onChangeAccount}
+          backgroundColor={'#E22B13'}
+          textColor={'#FFF'}
         />
       }
       {isGreaterThanZero(secondary, 'secondary') &&
@@ -74,6 +77,7 @@ const AllocationSummary = props => {
           remainingIncome={secondary}
           title="Secondary Expenses" 
           onChangeAccount={props.onChangeAccount}
+          backgroundColor={'#549EB1'}
         />
       }
       {isGreaterThanZero(tertiary, 'tertiary') &&
@@ -82,6 +86,7 @@ const AllocationSummary = props => {
           remainingIncome={tertiary}
           title="Tertiary Expenses" 
           onChangeAccount={props.onChangeAccount}
+          backgroundColor={'#418B9D'}
         />
       }
 

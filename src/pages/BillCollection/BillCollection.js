@@ -1,4 +1,4 @@
-import { Box, Button, Link, Paper, TextField, Typography } from "@mui/material"
+import { Box, Button, Chip, Link, Paper, TextField, Typography } from "@mui/material"
 import { isDueBeforeNextPayday } from "../../utils"
 
 const BillCollection = props => {
@@ -28,7 +28,7 @@ const BillCollection = props => {
                 variant="standard"
                 onBlur={e => props.onChange(e, account.name)}
               />
-              {!isDueBeforeNextPayday(props.date, account.dueDate) && <span>Optional</span>}
+              {!isDueBeforeNextPayday(props.date, account.dueDate) && <Chip label="Optional" color="primary" size="small" />}
             </Box>
           )
         })}
