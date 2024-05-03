@@ -1,7 +1,11 @@
-import dayjs from "dayjs"
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
+import dayjs from "dayjs";
+import dayOfYear from "dayjs/plugin/dayOfYear";
+import isLeapYear from "dayjs/plugin/isLeapYear";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
 dayjs.extend(isSameOrBefore)
+dayjs.extend(dayOfYear)
+dayjs.extend(isLeapYear)
 
 export const calculateRemainingIncome = (income, data, priority = '') => {
   const priorityLevel = ['base', 'primary', 'credit', 'secondary', 'tertiary']
@@ -21,9 +25,17 @@ export const calculateRemainingIncome = (income, data, priority = '') => {
 }
 
 export const isDueBeforeNextPayday = (today, dueDate) => {
-  const daysFromFriday = 7 - Math.abs(today.day() - 5) // 5 = Friday
-  const lastPayday = today.subtract(daysFromFriday, 'day')
-  const nextPayday = lastPayday.add(2, 'week')
+  const startingPayDate = dayjs().set('date', 26).set('month', 3).set('year', 2024) // Apr 26, 2024
+  const startingConverted  = new Date(2024, 3, 26) // Apr 26, 2024
+  const todayConverted = new Date()
+  const anchoredDate = startingPayDate.dayOfYear() // 117
+  const currentDayOfYear = today.dayOfYear()
+
+  const difference = durationOfDays(startingConverted, todayConverted)
+
+  const multiplier = Math.ceil(difference / 14) // how many pay cycles since starting date
+  
+  const nextPayday = startingPayDate.add(multiplier * 2, 'week')
 
   const convertedDueDate = (dueDate > today.date()) 
                               ? dayjs().set('date', dueDate) 
@@ -42,4 +54,12 @@ export const updateAccounts = (value, accountName, accountList) => {
   const newAccountList = [...accountList.slice(0, originalIndex), updatedAccount, ...accountList.slice(originalIndex + 1)]
 
   return newAccountList
+}
+
+export const durationOfDays = (date1, date2, precise = true) => {
+  const day = 1000 * 60 * 60 * 24 
+  const start = date1.getTime()
+  const end = date2.getTime()
+
+  return precise ? (end - start) / day : Math.floor((end - start) / day)
 }
