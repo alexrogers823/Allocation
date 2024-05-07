@@ -1,4 +1,5 @@
-import { Box, Button, Chip, Link, Paper, TextField, Typography } from "@mui/material"
+import { Button, Chip, Link, Paper, TextField, Typography } from "@mui/material"
+import Bill from "../../components/Bill"
 import { isDueBeforeNextPayday } from "../../utils"
 
 const BillCollection = props => {
@@ -6,21 +7,21 @@ const BillCollection = props => {
     <>
       <Paper>
         <Typography variant="subtitle1">Enter your income and credit card expenses</Typography>
-        <Box>
-          <span>Income</span>
+        <Bill income>
+          <Typography variant="body1">Income</Typography>
           <TextField 
             id="income" 
             type="number" 
             variant="standard"
             onBlur={props.onChangeIncome} 
           />
-        </Box>
+        </Bill>
         <br />
         {props.accounts.map((account, index) => {
           return (
-            <Box key={index}>
-              <Link href={account.link} target="_blank" rel="noopener" underline="none">
-                <span>{account.name}</span>
+            <Bill key={index}>
+              <Link href={account.link} target="_blank" rel="noopener" underline="none" color="inherit">
+                <Typography variant="body1">{account.name}</Typography>
               </Link>
               <TextField 
                 id={`creditAccount${index}`} 
@@ -28,8 +29,11 @@ const BillCollection = props => {
                 variant="standard"
                 onBlur={e => props.onChange(e, account.name)}
               />
-              {!isDueBeforeNextPayday(props.date, account.dueDate) && <Chip label="Optional" color="primary" size="small" />}
-            </Box>
+              {isDueBeforeNextPayday(props.date, account.dueDate)
+                ? <span></span>
+                : <Chip label="Optional" color="primary" size="small" />
+              }
+            </Bill>
           )
         })}
         <br />
