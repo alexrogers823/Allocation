@@ -28,8 +28,6 @@ export const isDueBeforeNextPayday = (today, dueDate) => {
   const startingPayDate = dayjs().set('date', 26).set('month', 3).set('year', 2024) // Apr 26, 2024
   const startingConverted  = new Date(2024, 3, 26) // Apr 26, 2024
   const todayConverted = new Date()
-  const anchoredDate = startingPayDate.dayOfYear() // 117
-  const currentDayOfYear = today.dayOfYear()
 
   const difference = durationOfDays(startingConverted, todayConverted)
 
