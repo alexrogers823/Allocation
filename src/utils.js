@@ -63,3 +63,11 @@ export const durationOfDays = (date1, date2, precise = true) => {
 
   return precise ? (end - start) / day : Math.floor((end - start) / day)
 }
+
+export const formatNumber = (number, formatType = null, digits = 2) => {
+  if (formatType === "currency") {
+    return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: digits }).format(number)
+  }
+
+  return new Intl.NumberFormat().format(number)
+}

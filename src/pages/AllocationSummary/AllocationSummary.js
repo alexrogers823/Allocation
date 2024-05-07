@@ -2,7 +2,7 @@ import { Grid, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import Account from "../../components/Account";
 import Section from "../../components/Section";
-import { calculateRemainingIncome } from "../../utils";
+import { calculateRemainingIncome, formatNumber } from "../../utils";
 
 const AllocationSummary = props => {
   const primary = calculateRemainingIncome(props.income, props.accounts, 'primary')
@@ -93,7 +93,7 @@ const AllocationSummary = props => {
       <Paper elevation={3}>
         <Typography variant="subtitle1">
           <span>Total Income Remaining: </span>
-          <span>{finalRemainingIncome()}</span>
+          <span>{formatNumber(finalRemainingIncome(), "currency")}</span>
         </Typography>
       </Paper>
     </>
