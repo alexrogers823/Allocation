@@ -8,8 +8,8 @@ const valueFormatter = value => formatNumber(value, "currency")
 const LineChart = props => {
   return (
     <MuiLineChart
-      width={1300}
-      height={300}
+      width={props.width}
+      height={props.height}
       series={[
         { data: capitalOneData.map(v => v.balance), label: 'Capital One', color: getDataColor("capitalOne"), valueFormatter },
         { data: amexGoldData.map(v => v.balance), label: 'Amex Gold', color: getDataColor("amexGold"), valueFormatter },

@@ -7,8 +7,8 @@ const valueFormatter = value => formatNumber(value, "currency")
 const AreaChart = props => {
   return (
     <LineChart
-      width={600}
-      height={300}
+      width={props.width}
+      height={props.height}
       series={[{ data: props.data.map(instance => instance.balance), label: props.title || 'Balance', area: true, showMark: false, color: props.color, valueFormatter }]}
       xAxis={[{ scaleType: 'point', data: props.data.map(instance => instance.date) }]}
       sx={{
