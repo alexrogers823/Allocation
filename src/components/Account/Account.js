@@ -26,7 +26,7 @@ export const Account = (props) => {
       <Grid item xs={4}>
         <AccountItem>
           <TextField 
-            defaultValue={formatNumber(props.cost)}
+            defaultValue={props.cost}
             type="number" 
             variant="standard" 
             size="small"
@@ -57,13 +57,14 @@ export const TertiaryAccount = props => {
             InputProps={{
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
+            onBlur={e => props.onChangeAccount(e, props.name, true)}
           />
         </AccountItem>
       </Grid>
       <Grid item xs={3}>
         <AccountItem>
           <TextField 
-            defaultValue={formatNumber(props.cost)}
+            value={formatNumber(props.cost)}
             type="number" 
             variant="standard" 
             size="small"

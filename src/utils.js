@@ -42,11 +42,11 @@ export const isDueBeforeNextPayday = (today, dueDate) => {
   return convertedDueDate.isSameOrBefore(nextPayday, 'date')
 }
 
-export const updateAccounts = (value, accountName, accountList) => {
+export const updateAccounts = (value, accountName, accountList, isPercent) => {
   const original = accountList.find(account => account.name === accountName)
   const originalIndex = accountList.findIndex(account => account.name === accountName)
 
-  const updated = { cost: Number(value) }
+  const updated = isPercent ? { percent: Number(value / 100) } : { cost: Number(value) }
 
   const updatedAccount = Object.assign(original, updated)
   const newAccountList = [...accountList.slice(0, originalIndex), updatedAccount, ...accountList.slice(originalIndex + 1)]

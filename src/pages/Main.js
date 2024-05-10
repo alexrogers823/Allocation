@@ -46,8 +46,8 @@ const Main = () => {
     setTabValue(newValue);
   };
 
-  const handleChangeAccount = (e, accountName) => {
-    const updatedAccounts = updateAccounts(e.target.value, accountName, accounts)
+  const handleChangeAccount = (e, accountName, isPercent = false) => {
+    const updatedAccounts = updateAccounts(e.target.value, accountName, accounts, isPercent)
     setAccounts(updatedAccounts)
   }
 
