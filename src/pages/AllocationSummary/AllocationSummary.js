@@ -1,6 +1,6 @@
 import { Grid, Paper, Typography } from "@mui/material";
 import { useState } from "react";
-import Account from "../../components/Account";
+import { Account } from "../../components/Account";
 import Section from "../../components/Section";
 import { calculateRemainingIncome, formatNumber } from "../../utils";
 

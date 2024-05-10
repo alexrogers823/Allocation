@@ -30,7 +30,10 @@ const BarChart = props => {
           itemMarkWidth: 15,
           itemMarkHeight: 2,
           markGap: 7,
-          itemGap: 10
+          itemGap: 10,
+          labelStyle: {
+            fontSize: 12
+          }
         }
       }}
     />

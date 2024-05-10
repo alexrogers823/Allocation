@@ -4,11 +4,11 @@ import { styled } from "@mui/material/styles";
 const StyledBill = styled(Box)((props) => ({
   display: 'flex',
   justifyContent: 'space-evenly',
-  backgroundColor: props.income ? '#34DF2D' : '#847FED',
+  backgroundImage: props.income ? 'linear-gradient(to bottom right, #34DF2D, #175C0C)' : 'linear-gradient(to bottom right, #A6D8E5, #847FED)',
   padding: 5,
   margin: 10,
   textAlign: 'left',
-  color: props.income ? '#187A14' : 'white',
+  color: 'white',
   width: '50%'
 }))
 

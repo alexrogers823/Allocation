@@ -35,7 +35,7 @@ const BalanceCharts = () => {
         <LineChart width={chartWidth} height={chartHeight} />
       </StyledChartContainer>
       <StyledChartContainer backgroundColor="#E3F5F4">
-        <AreaChart data={australiaData} title="Australia Data" color={getDataColor("australia")} width={chartWidth} height={chartHeight} goalline={{ display: true, goal: 3500 }} />
+        <AreaChart data={australiaData} title="Australia Data" color={getDataColor("australia")} width={chartWidth} height={chartHeight} goal={3500} />
         <AreaChart data={emergencyFundData} title="Emergency Fund Balance" color={getDataColor("emergency")} width={chartWidth} height={chartHeight} />
         <AreaChart data={wellsFargoData} title="Wells Fargo CC Balance" color={getDataColor("wellsFargo")} width={chartWidth} height={chartHeight} />
         <AreaChart data={discoverData} title="Discover Balance" color={getDataColor("discover")} width={chartWidth} height={chartHeight} />

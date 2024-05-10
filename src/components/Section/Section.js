@@ -1,7 +1,7 @@
 import { Grid, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { formatNumber } from "../../utils";
-import Account from "../Account";
+import { Account, TertiaryAccount } from "../Account";
 
 const SectionItem = styled(Paper)((props) => ({
   backgroundColor: props.backgroundColor ? props.backgroundColor : '#fff',
@@ -20,11 +20,17 @@ const Section = props => {
       <StyledTypography variant="h6" textColor={props.textColor}>{props.title}</StyledTypography>
       <StyledTypography variant="subtitle1" textColor={props.textColor} gutterBottom>Income Remaining: {formatNumber(props.remainingIncome, "currency")}</StyledTypography>
       <Grid container spacing={2}>
-        {props.accounts.map((acc, i) => <Account key={i} name={acc.name} cost={acc.cost} link={acc.link ? acc.link : null} onChangeAccount={props.onChangeAccount} />)}
+        { props.title === "Tertiary Expenses"
+          ? props.accounts.map((acc, i) => <TertiaryAccount key={i} name={acc.name} percent={acc.percent} cost={acc.percent * props.remainingIncome} link={acc.link ? acc.link : null} onChangeAccount={props.onChangeAccount} />)
+          : props.accounts.map((acc, i) => <Account key={i} name={acc.name} cost={acc.cost} link={acc.link ? acc.link : null} onChangeAccount={props.onChangeAccount} />)
+        }
       </Grid>
       <StyledTypography variant="subtitle1" textColor={props.textColor}>
         <span>Total: </span>
-        <span>{formatNumber(props.accounts.reduce((total, acc) => total + acc.cost, 0), "currency", 0)}</span>
+        { props.title === "Tertiary Expenses"
+          ? <span>{formatNumber(props.remainingIncome, "currency")}</span>
+          : <span>{formatNumber(props.accounts.reduce((total, acc) => total + acc.cost, 0), "currency", 0)}</span>
+        }
       </StyledTypography>
     </SectionItem>
   )

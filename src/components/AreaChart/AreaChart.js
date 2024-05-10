@@ -12,6 +12,7 @@ const AreaChart = props => {
       height={props.height}
       series={[{ data: props.data.map(instance => instance.balance), label: props.title || 'Balance', type: 'line', area: true, showMark: false, color: props.color, valueFormatter }]}
       xAxis={[{ scaleType: 'point', data: props.data.map(instance => instance.date) }]}
+      yAxis={[{ max: props.goal ? props.goal : null }]}
       sx={{
         [`& .${lineElementClasses.root}`]: {
           display: 'none',
@@ -24,7 +25,7 @@ const AreaChart = props => {
       <ChartsXAxis />
       <ChartsYAxis />
       <ChartsLegend />
-      {props.goalline?.display && <ChartsReferenceLine y={props.goalline.goal} label="Goal" lineStyle={{ stroke: 'red' }} />}
+      {props.goal && <ChartsReferenceLine y={props.goal} label={`Goal: ${formatNumber(props.goal, "currency")}`} lineStyle={{ stroke: 'red' }} />}
     </ChartContainer>
   );
 }

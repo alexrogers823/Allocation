@@ -67,5 +67,9 @@ export const formatNumber = (number, formatType = null, digits = 2) => {
     return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: digits }).format(number)
   }
 
+  if (formatType === "percent") {
+    return new Intl.NumberFormat().format(number * 100)
+  }
+
   return new Intl.NumberFormat().format(number)
 }

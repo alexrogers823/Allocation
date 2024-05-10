@@ -14,7 +14,7 @@ export const accountsData = [
   { name: 'Voiceover', cost: 100, priority: 'secondary' },
   { name: 'Flights', cost: 30, priority: 'secondary' },
   { name: 'Travel', cost: 70, priority: 'secondary' },
-  { name: 'Investments', cost: 100, priority: 'tertiary' },
-  { name: 'Car', cost: 100, priority: 'tertiary' },
-  { name: 'Short Term Expenses', cost: 50, priority: 'tertiary' }
+  { name: 'Investments', cost: 100, percent: 0.6, priority: 'tertiary' },
+  { name: 'Car', cost: 100, percent: 0.3, priority: 'tertiary' },
+  { name: 'Short Term Expenses', percent: 0.1, cost: 50, priority: 'tertiary' }
 ]

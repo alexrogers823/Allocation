@@ -1,5 +1,6 @@
-import { Grid, InputAdornment, Link, Paper, TextField } from "@mui/material"
-import { styled } from "@mui/material/styles"
+import { Grid, InputAdornment, Link, Paper, TextField } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { formatNumber } from "../../utils";
 
 const AccountItem = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -11,8 +12,7 @@ const AccountItem = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }))
 
-const Account = (props) => {
-
+export const Account = (props) => {
   return (
     <>
       <Grid item xs={8}>
@@ -26,7 +26,7 @@ const Account = (props) => {
       <Grid item xs={4}>
         <AccountItem>
           <TextField 
-            defaultValue={props.cost}
+            defaultValue={formatNumber(props.cost)}
             type="number" 
             variant="standard" 
             size="small"
@@ -41,4 +41,39 @@ const Account = (props) => {
   )
 }
 
-export default Account
+export const TertiaryAccount = props => {
+  return (
+    <>
+      <Grid item xs={8}>
+        <AccountItem>{props.name}</AccountItem>
+      </Grid>
+      <Grid item xs={1}>
+        <AccountItem>
+          <TextField 
+            defaultValue={formatNumber(props.percent, "percent")}
+            type="number" 
+            variant="standard" 
+            size="small"
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
+          />
+        </AccountItem>
+      </Grid>
+      <Grid item xs={3}>
+        <AccountItem>
+          <TextField 
+            defaultValue={formatNumber(props.cost)}
+            type="number" 
+            variant="standard" 
+            size="small"
+            InputProps={{
+              startAdornment: <InputAdornment position="start">$</InputAdornment>,
+            }}
+            disabled
+          />
+        </AccountItem>
+      </Grid>
+    </>
+  )
+}
