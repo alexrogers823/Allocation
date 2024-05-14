@@ -63,9 +63,9 @@ export const TertiaryAccount = props => {
       </Grid>
       <Grid item xs={3}>
         <AccountItem>
-          <TextField 
-            value={formatNumber(props.cost)}
-            type="number" 
+          <TextField
+            value={props.cost}
+            type="number"
             variant="standard" 
             size="small"
             InputProps={{
